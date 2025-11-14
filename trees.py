@@ -45,25 +45,28 @@ class Node:
         if key == self:
             pass
         elif key < self and self._left is not None:
-            self._left.insert(key)
+            self._left._insert(key)
         elif key < self:
             self._left = Node(key, self)
         elif key > self and self._right is not None:
-            self._right.insert(key)
+            self._right._insert(key)
         elif key > self:
             self._right = Node(key, self)
 
 class Tree:
     def __init__(self, iterable: Iterable=()):
-        self._root = None
+        self._root: None | Node = None
         for item in iterable:
             self.insert(item)
+
+    def __repr__(self) -> str:
+        return repr(self._root)
 
     # Public Methods
 
     def insert(self, key) -> None:
         """Inserts a key into the tree if it does not already exit"""
-        if self._root == None:
+        if self._root is None:
             self._root = Node(key)
         else:
             self._root._insert(key)
