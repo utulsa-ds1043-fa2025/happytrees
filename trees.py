@@ -53,6 +53,19 @@ class Node:
         elif key > self:
             self._right = Node(key, self)
 
+    def _find(self, key) -> bool:
+        """Recursive function for adding a key to the Tree"""
+        if key == self.key:
+            return True
+        elif key < self.key and self._left is not None:
+            return self._left._find(key)
+        elif key < self.key:
+            return False
+        elif key > self.key and self._right is not None:
+            return self._right._find(key)
+        elif key > self.key:
+            return False
+
 class Tree:
     def __init__(self, iterable: Iterable=()):
         self._root: None | Node = None
@@ -61,6 +74,11 @@ class Tree:
 
     def __repr__(self) -> str:
         return repr(self._root)
+
+    def __contains__(self, item) -> bool:
+        if self._root is None:
+            return False
+        return self._root._find(item)
 
     # Public Methods
 
